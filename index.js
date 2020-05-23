@@ -1,6 +1,7 @@
 "use strict";
 
 const { isArray, isBoolean, isEmpty, isObject, isString } = require("lodash");
+const isUrl = require("is-url");
 const posthtml = require("posthtml");
 const posthtmlUrls = require("posthtml-urls");
 const striptags = require("striptags");
@@ -42,6 +43,16 @@ function _require_string(field, title) {
   return field;
 }
 
+function _require_url(field, title) {
+  _require_string(field, title);
+
+  if (!isUrl(field)) {
+    throw new Error("`${title}` must be a URL");
+  }
+
+  return field;
+}
+
 function _validate_author(author) {
   if (!isObject(author)) {
     throw new Error("author should be an object");
@@ -49,12 +60,18 @@ function _validate_author(author) {
 
   let retAuthor = {};
 
-  // all of these are optional and must be strings
-  const possibleFields = ["name", "url", "avatar"];
+  // author.name is optional and must be a string
+  if (author.name) {
+    _require_string(author.name, "author name");
+    retAuthor.name = author.name;
+  }
 
-  for (const field of possibleFields) {
+  // all of these are optional and must be urls
+  const possibleUrlFields = ["url", "avatar"];
+
+  for (const field of possibleUrlFields) {
     if (author[field]) {
-      _require_string(author[field], `author ${field}`);
+      _require_url(author[field], `author ${field}`);
     }
     retAuthor[field] = author[field];
   }
@@ -108,20 +125,18 @@ module.exports = {
         }
         feed.title = _require_string(meta.title, "feed title");
 
-        // home_page_url is optional and must be a string
+        // home_page_url is optional for the spec, but required for
+        // us, and must be a url
         if (!meta.home_page_url) {
           throw new Error(
             "home_page_url is required by eleventy-plugin-json-feed"
           );
         }
-        feed.home_page_url = _require_string(
-          meta.home_page_url,
-          "home_page_url"
-        );
+        feed.home_page_url = _require_url(meta.home_page_url, "home_page_url");
 
-        // feed_url is optional and must be a string
+        // feed_url is optional and must be a url
         if (meta.feed_url) {
-          feed.feed_url = _require_string(meta.feed_url, "feed_url");
+          feed.feed_url = _require_url(meta.feed_url, "feed_url");
         }
 
         // description is optional and must be a string
@@ -137,19 +152,19 @@ module.exports = {
           );
         }
 
-        // next_url is optional and must be a string
+        // next_url is optional and must be a url
         if (meta.next_url) {
-          feed.next_url = _require_string(meta.next_url, "next_url");
+          feed.next_url = _require_url(meta.next_url, "next_url");
         }
 
-        // icon is optional and must be a string
+        // icon is optional and must be a url
         if (meta.icon) {
-          feed.icon = _require_string(meta.icon, "meta_icon");
+          feed.icon = _require_url(meta.icon, "meta_icon");
         }
 
-        // favicon is optional and must be a string
+        // favicon is optional and must be a url
         if (meta.favicon) {
-          feed.favicon = _require_string(meta.favicon, "favicon");
+          feed.favicon = _require_url(meta.favicon, "favicon");
         }
 
         // author is optional but must follow the rules if present
@@ -189,9 +204,9 @@ module.exports = {
             url: absPostUrl, // optional, string
           };
 
-          // external_url is optional and must be a string
+          // external_url is optional and must be a url
           if (post.data.external_url) {
-            item.external_url = _require_string(
+            item.external_url = _require_url(
               post.data.external_url,
               "post external_url"
             );
@@ -229,17 +244,17 @@ module.exports = {
             );
           }
 
-          // image is optional and must be a string
+          // image is optional and must be a url
           if (post.data[options.image_metadata_field_name]) {
-            item.image = _require_string(
+            item.image = _require_url(
               post.data[options.image_metadata_field_name],
               `post ${options.image_metadata_field_name}`
             );
           }
 
-          // banner_image is optional and must be a string
+          // banner_image is optional and must be a url
           if (post.data[options.banner_image_metadata_field_name]) {
-            item.banner_image = _require_string(
+            item.banner_image = _require_url(
               post.data[options.banner_image_metadata_field_name],
               `post ${options.banner_image_metadata_field_name}`
             );

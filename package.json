@@ -33,6 +33,7 @@
     "prettier": "^2.0.5"
   },
   "dependencies": {
+    "is-url": "^1.2.4",
     "posthtml": "^0.13.0",
     "posthtml-urls": "^1.0.0",
     "striptags": "^3.1.1",
