@@ -7,7 +7,7 @@ a [JSON Feed](https://jsonfeed.org/) using the Nunjucks templating engine.
 
 Available on [npm](https://www.npmjs.com/package/eleventy-plugin-json-feed).
 
-```
+```bash
 npm install eleventy-plugin-json-feed --save
 ```
 
@@ -16,7 +16,7 @@ npm install eleventy-plugin-json-feed --save
 Open up your Eleventy config file, `require` the plugin, and then use
 `addPlugin` to activate and configure it:
 
-```
+```js
 const pluginJsonFeed = require("eleventy-plugin-json-feed");
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginJsonFeed, options);
@@ -26,7 +26,7 @@ module.exports = function(eleventyConfig) {
 Copy the provided sample feed template into your working directory and
 then customize it for your site:
 
-```
+```bash
 cp node_modules/eleventy-plugin-json-feed/sample/json.feed.njk
 $EDITOR ./json.feed.njk
 ```
@@ -39,14 +39,15 @@ Note that you will need to have `"njk"` listed in the
 This plugin makes a `jsonFeed` shortcode available to the Nunjucks
 templater. It expects to be called like this:
 
-```
+```twig
 {% jsonFeed collections.posts, metadata, 10 %}
 ```
 
 The third argument is the number of most recent posts to be included
-in the feed. If not provided, it defaults to 10.
+in the feed. If not provided, it defaults to 10. If `0` is provided,
+all posts will be included in the generated feed.
 
-The sample template referenced above should provide a good starting
+The sample at `sample/json.feed.njk` should provide a good starting
 point for almost every use case.
 
 ## Options
