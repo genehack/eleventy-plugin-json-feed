@@ -11,13 +11,15 @@ Available on [npm](https://www.npmjs.com/package/eleventy-plugin-json-feed).
 npm install eleventy-plugin-json-feed --save
 ```
 
+## Using the plugin
+
 Open up your Eleventy config file, `require` the plugin, and then use
 `addPlugin` to activate and configure it:
 
 ```
 const pluginJsonFeed = require("eleventy-plugin-json-feed");
 module.exports = function(eleventyConfig) {
-  eleventyConfig.addPlugin(pluginJsonFeed);
+  eleventyConfig.addPlugin(pluginJsonFeed, options);
 };
 ```
 
@@ -32,11 +34,7 @@ $EDITOR ./json.feed.njk
 Note that you will need to have `"njk"` listed in the
 `templateFormats` list in your `.eleventy.js`.
 
-## Options
-
-This plugin currently provides no user configurable options.
-
-## Example
+## How this plugin works
 
 This plugin makes a `jsonFeed` shortcode available to the Nunjucks
 templater. It expects to be called like this:
@@ -47,6 +45,82 @@ templater. It expects to be called like this:
 
 The third argument is the number of most recent posts to be included
 in the feed. If not provided, it defaults to 10.
+
+The sample template referenced above should provide a good starting
+point for almost every use case.
+
+## Options
+
+You can modify the behavior of this plugin by passing an options
+object as the second argument to `addPlugin`. The default options set
+by the plugin are:
+
+```js
+const defaultOptions = {
+  banner_image_metadata_field_name: "banner_image",
+  content_html: true,
+  content_text: false,
+  image_metadata_field_name: "image",
+  summary_metadata_field_name: "summary",
+  tags_metadata_field_name: "tags",
+};
+```
+
+* `banner_image_metadata_field_name`: will be used as the name of the
+  YAML front matter attribute where the URL of an banner image is
+  stored. If found, the value of this attribute will be used to set
+  the `item.banner_image` value for the corresponding post item in the
+  generated feed. Note that this field, if present, must contain a
+  string value, or an error will be thrown.
+* `content_html`: boolean indicating if post HTML should be included
+  in the feed.
+* `content_text`: boolean indicating if a text version of post content
+  should be included in the feed.
+* `image_metadata_field_name`: will be used as the name of the YAML
+  front matter attribute where the URL of an image associated with the
+  post is stored. If found, the value of this attribute will be used
+  to set the `item.image` value for the corresponding post item in the
+  generated feed. Note that this field, if present, must contain a
+  string value, or an error will be thrown.
+* `summary_metadata_field_name`: will be used as the name of the YAML
+  front matter attribute where the short summary of a post is stored.
+  If found, the value of this attribute will be used to set the
+  `item.summary` value for the corresponding post item in the
+  generated feed. Note that this field, if present, must contain a
+  string value, or an error will be thrown.
+* `tags_metadata_field_name`: will be used as the name of the YAML
+  front matter attribute where an array of tags categorizing a post is
+  stored. If found, the value of this attribute will be used to set
+  the `item.summary** value for the corresponding post item in the
+  generated feed. Note that this field must contain an array of
+  strings or an error will be thrown.
+
+**IMPORTANT NOTE:** At least one of `content_html` and `content_text`
+_MUST_ be true, or an error will be thrown. It is allowed to set them
+both to true.
+
+### Example options
+
+Say you've got a blog and want to generate a JSON feed containing the
+HTML representation of your posts. You sometimes use a
+`social_media_image` key in your front matter when you want to feature
+an image on social media, and each post has an attribute called
+`categories` that's an array of category names. You have an attribute
+called `description` that's a short synopsis of your post content.
+
+If that's the case, you'd want to load this plugin like this:
+
+```js
+const pluginJsonFeed = require("eleventy-plugin-json-feed");
+module.exports = function(eleventyConfig) {
+  eleventyConfig.addPlugin(pluginJsonFeed, {
+    content_html: true,
+    image_metadata_field_name: "social_media_image",
+    summary_metadata_field_name: "description",
+    tags_metadata_field_name: "categories"
+  });
+};
+```
 
 ## Contributing
 

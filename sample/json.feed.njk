@@ -1,12 +1,19 @@
 ---
-permalink: feed.json
+permalink: "feed.json"
 metadata:
-  title: my blog
-  url: https://my.blog/
-  feed:
-    id: https://my.blog/
-    url: https://my.blog/feed.json
+  title: "my blog" (required; string)
+  home_page_url: "https://my.blog" (optional in spec but required for this plugin; string)
+  description: string providing more detail about feed (optional; string)
+  feed_url: url for this feed (optional but strongly recommended; string)
+  user_comment: purpose of the feed (optional; string)
+  next_url: for pagination; see spec (optional; string)
+  icon: url for large icon for feed; see spec (optional; string)
+  favicon: url for small icon for feed; see spec (optional; string)
   author:
-    name: Me
+    name: author's name (optional; string)
+    url: url of site owned by author (optional; string)
+    avatar: url for large image of author (optional; string; see spec for details)
+  expired: boolean indicating if this feed is actively updated (optional; bool)
+  hubs: for real-time notification endpoints (very optional; array of objects; see spec for details)
 ---
 {% jsonFeed collections.posts, metadata, 10 %}
