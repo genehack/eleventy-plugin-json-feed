@@ -47,8 +47,8 @@ The third argument is the number of most recent posts to be included
 in the feed. If not provided, it defaults to 10. If `0` is provided,
 all posts will be included in the generated feed.
 
-The sample at `sample/json.feed.njk` should provide a good starting
-point for almost every use case.
+The sample template at `sample/json.feed.njk` should provide a good
+starting point for almost every use case.
 
 ## Options
 
@@ -125,6 +125,15 @@ module.exports = function(eleventyConfig) {
   });
 };
 ```
+
+## Testing & Validation
+
+The test suite can be run with `npm test`. An ASCII coverage report
+can be generated with `npm run cover`; an HTML version can be
+generated with `npm run html-cover`.
+
+Feeds generated with this module should correctly validate with
+[`jsonfeed-validator`](https://www.npmjs.com/package/jsonfeed-validator).
 
 ## Contributing
 
