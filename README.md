@@ -60,6 +60,7 @@ const defaultOptions = {
   banner_image_metadata_field_name: "banner_image",
   content_html: true,
   content_text: false,
+  filter_posts_tag: true,
   image_metadata_field_name: "image",
   summary_metadata_field_name: "summary",
   tags_metadata_field_name: "tags",
@@ -76,6 +77,8 @@ const defaultOptions = {
   in the feed.
 * `content_text`: boolean indicating if a text version of post content
   should be included in the feed.
+* `filter_posts_tag`: boolean indicating if a tag of `posts` should be
+  filtered out of the `tags` metadata if it is present.
 * `image_metadata_field_name`: will be used as the name of the YAML
   front matter attribute where the URL of an image associated with the
   post is stored. If found, the value of this attribute will be used

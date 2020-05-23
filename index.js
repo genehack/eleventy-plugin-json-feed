@@ -73,6 +73,7 @@ const defaultOptions = {
   banner_image_metadata_field_name: "banner_image",
   content_html: true,
   content_text: false,
+  filter_posts_tag: true,
   image_metadata_field_name: "image",
   summary_metadata_field_name: "summary",
   tags_metadata_field_name: "tags",
@@ -260,6 +261,7 @@ module.exports = {
           if (post.data[options.tags_metadata_field_name]) {
             // just to make it shorter
             const tagField = options.tags_metadata_field_name;
+
             if (!isArray(post.data[tagField])) {
               throw new Error(`post ${tagField} must be an array.`);
             }
@@ -267,7 +269,15 @@ module.exports = {
             if (!post.data[tagField].every((x) => isString(x))) {
               throw new Error(`all post ${tagField} must be strings.`);
             }
-            item.tags = post.data[options.tags_metadata_field_name];
+
+            let tags = post.data[tagField];
+            if (options.filter_posts_tag) {
+              tags = tags.filter(x=>x!=="posts");
+            }
+
+            if (!isEmpty(tags)) {
+              item.tags = tags;
+            }
           }
 
           feed.items.push(item);
