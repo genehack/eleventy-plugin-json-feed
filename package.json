@@ -1,0 +1,11 @@
+{
+  "name": "eleventy-plugin-json-feed",
+  "version": "0.0.1",
+  "description": "An Eleventy plugin for generating a JSON Feed using the Nunjucks templating engine.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+}
