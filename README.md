@@ -1,7 +1,7 @@
 # eleventy-plugin-json-feed
 
 An [Eleventy](https://github.com/11ty/eleventy) plugin for generating
-a JSON Feed using the Nunjucks templating engine.
+a [JSON Feed](https://jsonfeed.org/) using the Nunjucks templating engine.
 
 ## Installation
 
@@ -21,11 +21,32 @@ module.exports = function(eleventyConfig) {
 };
 ```
 
-Read more about [Eleventy plugins](https://www.11ty.io/docs/plugins/).
+Copy the provided sample feed template into your working directory and
+then customize it for your site:
+
+```
+cp node_modules/eleventy-plugin-json-feed/sample/json.feed.njk
+$EDITOR ./json.feed.njk
+```
+
+Note that you will need to have `"njk"` listed in the
+`templateFormats` list in your `.eleventy.js`.
 
 ## Options
 
+This plugin currently provides no user configurable options.
+
 ## Example
+
+This plugin makes a `jsonFeed` shortcode available to the Nunjucks
+templater. It expects to be called like this:
+
+```
+{% jsonFeed collections.posts, metadata, 10 %}
+```
+
+The third argument is the number of most recent posts to be included
+in the feed. If not provided, it defaults to 10.
 
 ## Contributing
 
