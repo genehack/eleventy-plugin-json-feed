@@ -287,7 +287,7 @@ module.exports = {
 
             let tags = post.data[tagField];
             if (options.filter_posts_tag) {
-              tags = tags.filter(x=>x!=="posts");
+              tags = tags.filter((x) => x !== "posts");
             }
 
             if (!isEmpty(tags)) {
