@@ -54,10 +54,19 @@ module.exports = {
         if (meta.icon) feed.icon = meta.icon;
         if (meta.favicon) feed.favicon = meta.favicon;
 
-        if (meta.author.name || meta.url || meta.author.avatar) {
+        if (
+          meta.author.name ||
+          meta.author.url ||
+          meta.author.avatar ||
+          meta.url
+        ) {
           feed.author = {};
+
           if (meta.author.name) feed.author.name = meta.author.name;
-          if (meta.url) feed.author.url = meta.url;
+
+          if (meta.author.url) feed.author.url = meta.author.url;
+          else if (meta.url) feed.author.url = meta.url;
+
           if (meta.author.avatar) feed.author.avatar = meta.author.avatar;
         }
 
