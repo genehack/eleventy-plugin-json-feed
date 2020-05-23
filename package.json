@@ -1,11 +1,34 @@
 {
   "name": "eleventy-plugin-json-feed",
-  "version": "0.0.1",
   "description": "An Eleventy plugin for generating a JSON Feed using the Nunjucks templating engine.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
+  "homepage": "https://git.genehack.net/genehack/eleventy-plugin-json-feed",
+  "version": "0.0.1",
   "license": "MIT",
+  "author": "John SJ Anderson <john@genehack.org>",
+  "repository": {
+    "type": "git",
+    "url": "https://git.genehack.net/genehack/eleventy-plugin-json-feed"
+  },
+  "main": "index.js",
+  "scripts": {},
+  "lint-staged": {
+    "*.js": [
+      "prettier --list-different",
+      "eslint"
+    ],
+    "*.json": [
+      "prettier --list-different"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^7.1.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.6",
+    "prettier": "^2.0.5"
+  },
+  "dependencies": {
+    "posthtml": "^0.13.0",
+    "posthtml-urls": "^1.0.0",
+    "url": "^0.11.0"
+  }
 }

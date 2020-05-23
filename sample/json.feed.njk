@@ -1,0 +1,12 @@
+---
+permalink: feed.json
+metadata:
+  title: my blog
+  url: https://my.blog/
+  feed:
+    id: https://my.blog/
+    url: https://my.blog/feed.json
+  author:
+    name: Me
+---
+{% jsonFeed collections.posts, metadata, 10 %}
