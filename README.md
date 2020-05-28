@@ -8,7 +8,7 @@ a [JSON Feed](https://jsonfeed.org/) using the Nunjucks templating engine.
 Available on [npm](https://www.npmjs.com/package/eleventy-plugin-json-feed).
 
 ```bash
-npm install eleventy-plugin-json-feed --save
+npm install --save eleventy-plugin-json-feed
 ```
 
 ## Using the plugin
