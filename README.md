@@ -126,6 +126,12 @@ module.exports = function(eleventyConfig) {
 };
 ```
 
+## Icon
+
+If you'd like to display a JSON Feed icon on your site, I recommend the
+[one](https://pfefferle.dev/openwebicons/icons/#openwebicons-jsonfeed)
+in [openwebicons](https://pfefferle.dev/openwebicons/)
+
 ## Testing & Validation
 
 The test suite can be run with `npm test`. An ASCII coverage report
